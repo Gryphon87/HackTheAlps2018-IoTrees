@@ -2,7 +2,7 @@ import sys
 import Adafruit_DHT
 import datetime as dt
 import json
-import time import sleep
+from time import sleep
 import io
 
 # Set sensor type : Options are DHT11,DHT22 or AM2302
