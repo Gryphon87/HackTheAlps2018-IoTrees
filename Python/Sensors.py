@@ -28,7 +28,7 @@ while True:
     #timestamp
     time = dt.datetime.now()
     #filename
-    filename = '{dir}/IoTrees-Beacon-{}-{}.json'.format(folder, beaconid, time)
+    filename = '{}/IoTrees-Beacon-{}-{}.json'.format(folder, beaconid, time)
 
     #print('Time: {}, Temp={}*C  Humidity={}%'.format( time, te, hum ))
     if te is not None and hum is not None:
