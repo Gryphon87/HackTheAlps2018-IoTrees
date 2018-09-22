@@ -16,7 +16,9 @@ f_list = [f for f in os.listdir(pathRaw) if f.endswith('.json')]
 for f in f_list:
     print('Processing file {} in folder {}'.format(pathRaw, f))
     filepath = '{}/{}'.format(pathRaw, f)
-    data = json.loads(os.open(filepath, 'r'))
+    with open(filepath, 'r') as inputfile:
+        data = json.loads(inputfile)
+    
     if data.Status == 'Err':
         #on errors, move files away and keep going
         os.rename('{}/{}'.format(pathRaw, f), '{}/{}'.format(pathError, f))
