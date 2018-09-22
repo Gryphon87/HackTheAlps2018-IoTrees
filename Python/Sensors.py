@@ -1,7 +1,7 @@
 import sys
 import Adafruit_DHT
-import datetime as dt
 import json
+import datetime
 import time
 import io
 
@@ -26,7 +26,10 @@ while True:
     #sensor data
     hum, te = Adafruit_DHT.read_retry(11, 17)
     #timestamp
-    timeOfRecording = dt.datetime.now()
+    timeOfRecording = datetime.datetime.now()
+    date = timeOfRecording.strftime('%Y%m%d')
+    hour = timeOfRecording.strftime('%H')
+    minute = timeOfRecording.strftime('%M')
     #filename
     filename = '{}/IoTrees-Beacon-{}-{}.json'.format(folder, beaconid, timeOfRecording)
 
@@ -35,7 +38,7 @@ while True:
         Status= 'Ok'
     else:
         Status= 'Err'
-    data = {'Beacon': beaconid, 'Status': Status, 'Date': '{}'.format(time.strftime('%Y%m%d', timeOfRecording)), 'Time': '{}'.format(time.strftime('%H:%M', timeOfRecording)), 'Temp': te, 'Hum': hum}
+    data = {'Beacon': beaconid, 'Status': Status, 'Date': '{}'.format(date), 'Hour': hour, 'Minutes': minute, 'Temp': te, 'Hum': hum}
     with open(filename, 'w') as outfile:
         json.dump(data, outfile)
         print('File {} written in folder {}!'.format(filename, folder))
