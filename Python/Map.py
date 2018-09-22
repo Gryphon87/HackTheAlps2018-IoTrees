@@ -27,7 +27,7 @@ for f in f_list:
     
     minute = int(data['Minutes'])
     time = '{}:{}'.format(data['Hour'], minute - minute%div)
-    mapped = {'Beacon': data['beaconid'], 'Date': data['date'], 'Time': time, 'Temp': data['Temp'], 'Hum': data['Hum'] }
+    mapped = {'Beacon': data['Beacon'], 'Date': data['date'], 'Time': time, 'Temp': data['Temp'], 'Hum': data['Hum'] }
     
     #write the mapped file
     json.dump(data, '{}/{}'.format(pathMapped, f))
