@@ -2,7 +2,7 @@ import sys
 import Adafruit_DHT
 import datetime as dt
 import json
-from time import sleep
+import time
 import io
 
 # Set sensor type : Options are DHT11,DHT22 or AM2302
@@ -26,17 +26,17 @@ while True:
     #sensor data
     hum, te = Adafruit_DHT.read_retry(11, 17)
     #timestamp
-    time = dt.datetime.now()
+    timeOfRecording = dt.datetime.now()
     #filename
-    filename = '{}/IoTrees-Beacon-{}-{}.json'.format(folder, beaconid, time)
+    filename = '{}/IoTrees-Beacon-{}-{}.json'.format(folder, beaconid, timeOfRecording)
 
     #print('Time: {}, Temp={}*C  Humidity={}%'.format( time, te, hum ))
     if te is not None and hum is not None:
         Status= 'Ok'
     else:
         Status= 'Err'
-    data = {'Beacon': beaconid, 'Status': Status, 'Date': time.strftime('%Y%m%d', time), 'Time': time.strftime('%H:%M', time), 'Temp': te, 'Hum': hum}
+    data = {'Beacon': beaconid, 'Status': Status, 'Date': time.strftime('%Y%m%d', timeOfRecording), 'Time': time.strftime('%H:%M', timeOfRecording), 'Temp': te, 'Hum': hum}
     with open(filename, 'w') as outfile:
         json.dump(data, outfile)
         print('File {} written in folder {}!'.format(filename, folder))
-    sleep(delay) #Wait X seconds between measurements
+    time.sleep(delay) #Wait X seconds between measurements
