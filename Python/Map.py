@@ -24,8 +24,9 @@ for f in f_list:
         os.rename('{}/{}'.format(pathRaw, f), '{}/{}'.format(pathError, f))
         print ('File {} moved to {} because of errors'.format(f, pathError))
         continue
-    int minutes = data['Minutes']
-    time = '{}:{}'.format(data['Hour'], minutes - minutes%div)
+    
+    minute = int(data['Minutes'])
+    time = '{}:{}'.format(data['Hour'], minute - minute%div)
     mapped = {'Beacon': data['beaconid'], 'Date': data['date'], 'Time': time, 'Temp': data['Temp'], 'Hum': data['Hum'] }
     
     #write the mapped file
