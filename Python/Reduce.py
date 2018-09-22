@@ -6,6 +6,7 @@
 import sys
 import json
 import os
+import datetime
 
 def max(list):
   max = list[0]
@@ -29,6 +30,8 @@ def avg(list):
 
 # Paths for files
 pathMapped = '{}/Data/Mapped'.format(os.getcwd())
+pathReduced = '{}/Data/Reduced'.format(os.getcwd())
+
 file_list = [f for f in os.listdir(pathMapped) if f.startswith('MappedFile')]
 for f in file_list:
   print('Processing file {} in folder {}'.format(pathMapped, f))
@@ -57,3 +60,8 @@ for key in reduced:
   temps = reduced[key]['Temp']
   hums = reduced[key]['Hum']
   stats[key] = {"minTemp": min(temps), "maxTemp": max(temps), "avgTemp": avg(temps), "minHum": min(hums), "maxHums": max(hums), "avgHums": avg(hums)}
+
+fileout = '{}/{}'.format(pathReduced, 'ReducedFile-{}'.format(datetime.datetime.now()))
+with open(fileout, 'w') as outfile:
+    json.dump(stats, outfile)
+print ('File {} reduced to {}'.format(fileout, pathMapped))
