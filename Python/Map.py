@@ -17,15 +17,15 @@ for f in f_list:
     print('Processing file {} in folder {}'.format(pathRaw, f))
     filepath = '{}/{}'.format(pathRaw, f)
     with open(filepath, 'r') as inputfile:
-        data = json.loads(inputfile)
+        data = json.loads(inputfile.read())
     
     if data.Status == 'Err':
         #on errors, move files away and keep going
         os.rename('{}/{}'.format(pathRaw, f), '{}/{}'.format(pathError, f))
         print ('File {} moved to {} because of errors'.format(f, pathError))
         continue
-    time = '{}:{}'.format(data.Time, data.Minutes - data.Minutes%div)
-    mapped = {'Beacon': data.beaconid, 'Date': data.date, 'Time': time, 'Temp': data.temp, 'Hum': data.hum }
+    time = '{}:{}'.format(data['Time'], data['Minutes'] - data['Minutes']%div)
+    mapped = {'Beacon': data['beaconid'], 'Date': data['date'], 'Time': time, 'Temp': data['Temp'], 'Hum': data['Hum'] }
     
     #write the mapped file
     json.dump(data, '{}/{}'.format(pathMapped, f))
