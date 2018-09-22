@@ -35,7 +35,7 @@ while True:
         Status= 'Ok'
     else:
         Status= 'Err'
-    data = {'Beacon': beaconid, 'Status': Status, 'Date': time.strftime('%Y%m%d', timeOfRecording), 'Time': time.strftime('%H:%M', timeOfRecording), 'Temp': te, 'Hum': hum}
+    data = {'Beacon': beaconid, 'Status': Status, 'Date': '{}'.format(time.strftime('%Y%m%d', timeOfRecording)), 'Time': '{}'.format(time.strftime('%H:%M', timeOfRecording)), 'Temp': te, 'Hum': hum}
     with open(filename, 'w') as outfile:
         json.dump(data, outfile)
         print('File {} written in folder {}!'.format(filename, folder))
