@@ -19,7 +19,7 @@ for f in f_list:
     with open(filepath, 'r') as inputfile:
         data = json.loads(inputfile.read())
     
-    if data.Status == 'Err':
+    if data['Status'] == 'Err':
         #on errors, move files away and keep going
         os.rename('{}/{}'.format(pathRaw, f), '{}/{}'.format(pathError, f))
         print ('File {} moved to {} because of errors'.format(f, pathError))
