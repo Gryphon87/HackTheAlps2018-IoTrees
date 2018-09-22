@@ -1,21 +1,21 @@
 import sys
 import Adafruit_DHT
-import datetime
+from datetime import datetime
+import json
+import time
 
 # Set sensor type : Options are DHT11,DHT22 or AM2302
-sensor=Adafruit_DHT.DHT11
- 
+sensor = Adafruit_DHT.DHT11
+
 # Set GPIO sensor is connected to
 gpio=17
 
-# Use read_retry method. This will retry up to 15 times to
-# get a sensor reading (waiting 2 seconds between each retry).
-humidity, temperature = Adafruit_DHT.read_retry(sensor, gpio)
-
-# Reading the DHT11 is very sensitive to timings and occasionally
-# the Pi might fail to get a valid reading. So check if readings are valid.
-print ('Time: {}'.format(datetime.datetime.now()))
-if humidity is not None and temperature is not None:
-    print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity))
-else:
-    print('Failed to get reading. Try again!')
+while True:
+    hum, temp = Adafruit_DHT.read_retry(11, 17)
+    time = datetime.now()
+    print('Time: {}, Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format( time, temp, hum))
+    if temp is not None and hum is not None:
+        json = json.dump('Beacon': 1, 'Status': 'Ok' 'Time': time, 'Temp': temp, 'Hum': hum)
+    else:
+        json = json.dump('Beacon': 1, 'Status': 'Err' 'Time': time, 'Temp': temp, 'Hum': hum)
+    time.sleep(30) #Wait 30 seconds between measurements
