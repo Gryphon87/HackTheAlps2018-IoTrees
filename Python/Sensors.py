@@ -20,7 +20,7 @@ beaconid = 1
 delay = 15
 
 #Folder
-folder = 'Data'
+folder = 'Data/Raw'
 
 while True:
     #sensor data
