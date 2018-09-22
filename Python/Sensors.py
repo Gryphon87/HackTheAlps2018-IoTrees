@@ -1,6 +1,6 @@
 import sys
 import Adafruit_DHT
-from datetime import datetime
+import datetime as dt
 import json
 import time
 import io
@@ -16,7 +16,7 @@ beaconid = 1
 
 while True:
     hum, temp = Adafruit_DHT.read_retry(11, 17)
-    time = datetime.now()
+    time = dt.datetime.now()
     print('Time: {}, Temp={}*C  Humidity={}%'.format( time, temp, hum ))
     if temp is not None and hum is not None:
         Status= 'Ok'
