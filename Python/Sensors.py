@@ -23,5 +23,5 @@ while True:
     else:
         Status= 'Ok'
 
-    print (json.dumps({'Beacon': beaconid, 'Status': Status, 'Time': time, 'Temp': temp, 'Hum': hum}))
+    #print (json.dumps({'Beacon': beaconid, 'Status': Status, 'Time': time, 'Temp': temp, 'Hum': hum}))
     time.sleep(30) #Wait 30 seconds between measurements
