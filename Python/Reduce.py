@@ -7,6 +7,26 @@ import sys
 import json
 import os
 
+def max(list):
+  max = list[0]
+  for x in list:
+    if x > max:
+      max = x
+  return max
+
+def min(list):
+  min = list[0]
+  for x in list:
+    if x < min:
+      min = x
+  return min
+
+def avg(list):
+  sum = 0
+  for x in list:
+    sum += x
+  return sum / len(list)
+
 # Paths for files
 pathMapped = '{}/Data/Mapped'.format(os.getcwd())
 file_list = [f for f in os.listdir(pathMapped) if f.startswith('MappedFile')]
@@ -16,20 +36,24 @@ for f in file_list:
   with open(filepath, 'r') as inputfile:
     data = json.loads(inputfile.read())
     
-    aggregatedData = dict()
+    reduced = dict()
     for d in data:
       id = '{}{}'.format(d['id'], d['time'])
-      measures = d['measures']
-      temp = measures['Temp']
-      hum = measures['Hum']
+      temp = d['measures']['Temp']
+      hum = d['measures']['Hum']
 
-      if id in aggregatedData.keys():
-        aggregatedData[id]['Temp'].append(temp)
-        aggregatedData[id]['Hum'].append(hum)
+      if id in reduced.keys():
+        reduced[id]['Temp'].append(temp)
+        reduced[id]['Hum'].append(hum)
         continue
       
-      aggregated = dict()
-      aggregated['Temp'] = [temp]
-      aggregated['Hum'] = [hum]
-      aggregatedData[id] = aggregated
+      measures = dict()
+      measures['Temp'] = [temp]
+      measures['Hum'] = [hum]
+      reduced[id] = measures
 
+stats = dict()
+for key in reduced:
+  temps = reduced[key]['Temp']
+  hums = reduced[key]['Hum']
+  stats[key] = {"minTemp": min(temps), "maxTemp": max(temps), "avgTemp": avg(temps), "minHum": min(hums), "maxHums": max(hums), "avgHums": avg(hums)}
