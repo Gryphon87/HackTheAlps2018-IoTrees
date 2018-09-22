@@ -19,6 +19,8 @@ beaconid = 1
 #delay (seconds)
 delay = 15
 
+#Folder
+folder = 'Data'
 
 while True:
     #sensor data
@@ -26,7 +28,7 @@ while True:
     #timestamp
     time = dt.datetime.now()
     #filename
-    filename = 'Data/IoTrees-Beacon-{}-{}.json'.format(beaconid, time)
+    filename = '{dir}/IoTrees-Beacon-{}-{}.json'.format(folder, beaconid, time)
 
     #print('Time: {}, Temp={}*C  Humidity={}%'.format( time, te, hum ))
     if te is not None and hum is not None:
@@ -36,5 +38,5 @@ while True:
     data = {'Beacon': beaconid, 'Status': Status, 'Time': '{}'.format(time), 'Temp': te, 'Hum': hum}
     with open(filename, 'w') as outfile:
         json.dump(data, outfile)
-        print('File {} written!'.format(filename))
+        print('File {} written in folder {}!'.format(filename, folder))
     sleep(delay) #Wait X seconds between measurements
