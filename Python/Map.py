@@ -12,6 +12,8 @@ pathArchive = '{}/Data/Archive'.format(os.getcwd())
 #value for dividing minutes (i.e. with 5 you get aggregated data every five minutes)
 div = 5
 
+out = []
+processedFiles = []
 f_list = [f for f in os.listdir(pathRaw) if f.endswith('.json')]
 for f in f_list:
     print('Processing file {} in folder {}'.format(pathRaw, f))
@@ -27,12 +29,21 @@ for f in f_list:
     
     minute = int(data['Minutes'])
     time = '{}:{}'.format(data['Hour'], minute - minute%div)
-    mapped = {'Beacon': data['Beacon'], 'Date': data['Date'], 'Time': time, 'Temp': data['Temp'], 'Hum': data['Hum'] }
-    
-    #write the mapped file
-    json.dump(data, '{}/{}'.format(pathMapped, f))
-    print ('File {} mapped to {}'.format(f, pathMapped))
+    #mapped = {'Beacon': data['Beacon'], 'Date': {'Date': data['Date'], 'Time': [{'Time' time,  'Measurements': [ {'Temp': data['Temp'], 'Hum': data['Hum'] }]}] }}
+    measurements =  {'Temp': data['Temp'], 'Hum': data['Hum'] }
 
-    #move the file
+    out.append({'Beacon': data['Beacon'], 'Date': {'Date': data['Date', 'Time': [{'Time': time, 'Measurements': [measurements]}]}})
+
+           
+    processedFiles.add(f)
+
+#write the mapped file
+fileout = '{}/{}'.format(pathMapped, 'MappedFile-{}'.format(datetime.datetime.now()))
+with open(fileout, 'w') as outfile:
+    json.dump(out, outfile)
+print ('File {} mapped to {}'.format(fileout, pathMapped))
+
+#move the files
+for f in processedFiles:
     os.rename('{}/{}'.format(pathRaw, f), '{}/{}'.format(pathArchive, f))
     print ('File {} archived to {}'.format(f, pathArchive))
