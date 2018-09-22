@@ -33,7 +33,7 @@ while True:
         Status= 'Ok'
     else:
         Status= 'Err'
-    data = {'Beacon': beaconid, 'Status': Status, 'Time': time, 'Temp': te, 'Hum': hum}
+    data = {'Beacon': beaconid, 'Status': Status, 'Time': '{}'.format(time), 'Temp': te, 'Hum': hum}
     with open(filename, 'w') as outfile:
         json.dump(data, outfile)
         print('File {} written!'.format(filename))
