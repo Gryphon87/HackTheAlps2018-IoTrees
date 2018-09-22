@@ -14,14 +14,27 @@ gpio = 17
 #BeaconId
 beaconid = 1
 
+
+
+#delay (seconds)
+delay = 15
+
+
 while True:
-    hum, temp = Adafruit_DHT.read_retry(11, 17)
+    #sensor data
+    hum, te = Adafruit_DHT.read_retry(11, 17)
+    #timestamp
     time = dt.datetime.now()
-    print('Time: {}, Temp={}*C  Humidity={}%'.format( time, temp, hum ))
-    if temp is not None and hum is not None:
+    #filename
+    filename = 'IoTrees-Beacon-{}-{}'.format(beaconid, time)
+
+    #print('Time: {}, Temp={}*C  Humidity={}%'.format( time, te, hum ))
+    if te is not None and hum is not None:
         Status= 'Ok'
     else:
-        Status= 'Ok'
-
-    #print (json.dumps({'Beacon': beaconid, 'Status': Status, 'Time': time, 'Temp': temp, 'Hum': hum}))
-    sleep(30) #Wait 30 seconds between measurements
+        Status= 'Err'
+    data = {'Beacon': beaconid, 'Status': Status, 'Time': time, 'Temp': te, 'Hum': hum}
+    with open(filename, 'w') as outfile:
+        json.dump(data, outfile)
+        print('File {} written!'.format(filename))
+    sleep(delay) #Wait X seconds between measurements
