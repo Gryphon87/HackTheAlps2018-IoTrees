@@ -1,7 +1,8 @@
 import sys
 import json
 import os
-import time
+#import time
+import datetime
 
 #Paths for files
 pathRaw = '{}/Data/Raw'.format(os.getcwd())
@@ -31,11 +32,14 @@ for f in f_list:
     time = '{}:{}'.format(data['Hour'], minute - minute%div)
     #mapped = {'Beacon': data['Beacon'], 'Date': {'Date': data['Date'], 'Time': [{'Time' time,  'Measurements': [ {'Temp': data['Temp'], 'Hum': data['Hum'] }]}] }}
     measurements =  {'Temp': data['Temp'], 'Hum': data['Hum'] }
-
-    out.append({'Beacon': data['Beacon'], 'Date': {'Date': data['Date', 'Time': [{'Time': time, 'Measurements': [measurements]}]}})
+    mapped = dict()
+    mapped['id'] = '{}-{}'.format(data['Beacon'],str(data['Date']))
+    mapped['time'] = time
+    mapped['measures'] = measurements
+    out.append(mapped)
 
            
-    processedFiles.add(f)
+    processedFiles.append(f)
 
 #write the mapped file
 fileout = '{}/{}'.format(pathMapped, 'MappedFile-{}'.format(datetime.datetime.now()))
