@@ -14,6 +14,7 @@ div = 5
 
 f_list = [f for f in os.listdir(pathRaw) if f.endswith('.json')]
 for f in f_list:
+    print('Processing file {} in folder {}'.format(pathRaw, f))
     data = json.loads('{}/{}'.format(pathRaw, f))
     if data.Status == 'Err':
         #on errors, move files away and keep going
