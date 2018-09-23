@@ -63,5 +63,5 @@ for key in reduced:
 
 fileout = '{}/{}'.format(pathReduced, 'ReducedFile-{}'.format(datetime.datetime.now()))
 with open(fileout, 'w') as outfile:
-    json.dump(stats, fileout)
+    json.dump(stats, outfile)
 print ('File {} reduced to {}'.format(fileout, pathReduced))
