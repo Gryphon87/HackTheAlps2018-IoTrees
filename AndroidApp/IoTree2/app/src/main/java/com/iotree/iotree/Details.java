@@ -23,8 +23,8 @@ public class Details extends AppCompatActivity {
         TextView Tcode = findViewById(R.id.textView2);
         TextView Ttrail_count = findViewById(R.id.textView3);
         //TextView Ttrail_progress = findViewById(R.id.textView4);
-        TextView Ttemperature = findViewById(R.id.textView5);
-        TextView Tpeople = findViewById(R.id.textView6);
+        TextView Ttemperature = findViewById(R.id.textView6);
+        TextView Tpeople = findViewById(R.id.textView7);
 
         try {
 
@@ -39,14 +39,14 @@ public class Details extends AppCompatActivity {
 
             JSONObject info = jsonObj.getJSONObject("info");
 
-            String temp = info.getString("temperature") + " " + trail.getString("temperature_type");
+            String temp = info.getString("temperature") + " °" + info.getString("temperature_type");
             String people_today = info.getString("people_today");
             String total_people = info.getString("total_people");
-/*  
-            Tcode.setText("Code: " + code);
+
+            Tcode.setText("Trail Code: " + code);
             Ttrail_count.setText("Trail Count: " + sign_count + "/" + total_sign);
             Ttemperature.setText("Temperature: " + temp);
-            Tpeople.setText("People here today: " + people_today);*/
+            Tpeople.setText("People here today: " + people_today);
 
         } catch (JSONException e) {
             Toast.makeText(this, "Tag error", Toast.LENGTH_LONG).show();
