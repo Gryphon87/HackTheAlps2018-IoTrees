@@ -37,7 +37,7 @@ for f in file_list:
   print('Processing file {} in folder {}'.format(pathMapped, f))
   filepath = '{}/{}'.format(pathMapped, f)
   with open(filepath, 'r') as inputfile:
-    data = json.loads(inputfile.read())
+    data = json.loads(inputfile)
     
     reduced = dict()
     for d in data:

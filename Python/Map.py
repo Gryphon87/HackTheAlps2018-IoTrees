@@ -20,7 +20,7 @@ for f in f_list:
     print('Processing file {} in folder {}'.format(pathRaw, f))
     filepath = '{}/{}'.format(pathRaw, f)
     with open(filepath, 'r') as inputfile:
-        data = json.loads(inputfile.read())
+        data = json.loads(inputfile)
     
     if data['Status'] == 'Err':
         #on errors, move files away and keep going
